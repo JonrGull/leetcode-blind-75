@@ -4,8 +4,6 @@
 
 // Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
-
-
 // Example 1:
 
 // Input: prices = [7,1,5,3,6,4]
@@ -18,7 +16,6 @@
 // Output: 0
 // Explanation: In this case, no transactions are done and the max profit = 0.
 
-
 // Constraints:
 
 // 1 <= prices.length <= 10^5
@@ -28,8 +25,25 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function (prices) {
+const maxProfit = function (prices) {
+  let maxProfit = 0;
+  let buy = 0;
+  let sell = 1;
 
+  while (sell < prices.length) {
+    if (prices[buy] < prices[sell]) {
+      profit = prices[sell] - prices[buy];
+      maxProfit = Math.max(maxProfit, profit);
+    } else {
+      buy = sell;
+    }
+    sell++;
+  }
+
+  return maxProfit;
 };
 
-module.exports = { maxProfit }
+console.log(maxProfit([7, 1, 5, 3, 6, 4])); // 5 (6-1)
+console.log(maxProfit([7, 6, 4, 3, 1])); // 0
+
+module.exports = { maxProfit };
